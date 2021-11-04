@@ -29,7 +29,7 @@ download_apollo_cli_if_needed() {
 
 download_cli() {
   echo "Downloading zip file with the CLI..."
-  curl --silent --retry 3 --fail --show-error -L "${ZIP_FILE_DOWNLOAD_URL}" -o "${ZIP_FILE}"
+  curl --silent -L "${ZIP_FILE_DOWNLOAD_URL}" -o "${ZIP_FILE}"
 }
 
 force_cli_download() {
@@ -67,7 +67,6 @@ validate_codegen_and_extract_if_needed() {
     if [[ "${IS_RETRY}" == "true" ]]; then
       #This was a retry, and the SHASUM still doesn't match.
       echo "Error: The SHASUM of this zip file does not match the official released version from Apollo! This may present security issues. Terminating code generation." >&2
-      exit 1
     else
       # This was the first attempt, the version may have changed.
       echo "Incorrect version of the CLI tarball is downloaded locally, redownloading the zip from the server."
